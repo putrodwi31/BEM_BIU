@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <main class="main">
-	<!--==================== HOME ====================-->
+	<!--==================== HOME =====================-->
 	<section class="home section" id="home">
 		<div class="home__container container grid">
 			<img src="<?= base_url('assets/img/logo/') . $org['logo']; ?>" alt="" class="home__img">
