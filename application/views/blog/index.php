@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-lg-3 col-md-3">
                     <div class="card-body bg-success">
-                        <h1 class="text-center text-white" style="font-size:50px">40</h1>
+                        <h1 class="text-center text-white" style="font-size:50px">0</h1>
                     </div>
                     <div class="card-footer text-center font-weight-bold">
                         Jumlah Komentar

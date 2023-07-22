@@ -8,7 +8,7 @@
                 <div class="col-lg-8">
 
 
-                    <?= form_open_multipart('admin/editkem'); ?>
+                    <?= form_open_multipart('admin/editkem/' . $kem['id']); ?>
                     <div class="form-group row">
                         <label for="name" class="col-sm-2 col-form-label">Nama Kementerian</label>
                         <div class="col-sm-10">

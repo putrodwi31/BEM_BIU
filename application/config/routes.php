@@ -12,6 +12,7 @@ $route['visi-misi'] = 'home/visi';
 $route['sejarah'] = 'home/sejarah';
 $route['struktur-menteri'] = 'home/struktur';
 $route['ukm'] = 'home/ukm';
+$route['contact'] = 'home/contact';
 $route['berita-program'] = 'home/beritap';
 $route['detail-ukm/(:num)'] = 'home/detUkm/$1';
 $route['detail-kem/(:num)'] = 'home/detKem/$1';

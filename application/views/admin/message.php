@@ -11,7 +11,6 @@
                                 <th scope="col">No</th>
                                 <th scope="col">Nama</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Subject</th>
                                 <th scope="col">Pesan</th>
                                 <th scope="col">Aksi</th>
                             </tr>
@@ -23,7 +22,6 @@
                                     <th scope="row"><?= $i; ?></th>
                                     <td><?= $p['nama']; ?></a></td>
                                     <td><?= $p['email']; ?></td>
-                                    <td><?= $p['subject']; ?></td>
                                     <td><?= word_limiter($p['isi'], 5); ?></td>
                                     <td>
                                         <a href="<?= base_url('admin/delmsg/') . $p['id']; ?>" class="badge badge-danger" onclick="return confirm('apakah anda yakin ingin menghapus?')">Hapus</a>

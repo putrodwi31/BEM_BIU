@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Okt 2022 pada 06.17
+-- Waktu pembuatan: 22 Jul 2023 pada 15.07
 -- Versi server: 10.4.22-MariaDB
--- Versi PHP: 7.4.29
+-- Versi PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -63,9 +63,9 @@ CREATE TABLE `artikel` (
 --
 
 INSERT INTO `artikel` (`id`, `judul`, `penulis`, `slug`, `gambar`, `isi`, `kategori`, `tag`, `tanggal`, `rand_id`, `dilihat`, `suka`, `tidak_suka`, `status`) VALUES
-(18, 'Liga Futsal Mahasiswa di LIFUMA', '1', 'liga-futsal-mahasiswa-di-lifuma', '18196962381910640843futsal.jpg', '<p>UKM futsal bina insani mengikuti liga LIIFUMA 2022 yang diadakan di STIE</p>\n', 1, 'futsal, BiU, Liga Futsal Mahasiswa', '2022-08-10', 'T5FaBg', 1, 0, 0, 1),
-(19, 'Program Kerja Divisi Kominfo x Minat Bakat', '1', 'program-kerja-divisi-kominfo-x-minat-bakat', '151768481pameran.jpg', '<p>Program kerja yang akan dilaksanakan oleh divisi Kominfo dan Minat Bakat di bulan april 2022 nanti</p>\r\n', 2, 'Proker, BEM, bina insani university', '2022-08-10', 'uXbfbg', 1, 0, 0, 1),
-(20, 'Sertijab Angkatan 2022/2023', '1', 'sertijab-angkatan-2022/2023', '1747618980876964702paslon-1-1.jpg', '<p>Badan Eksekutif Mahasiswa Bina Insani University akan melaksanakan sertijab setelah melakukan Pemira</p>\r\n', 1, 'Sertijab, BEM, bina insani university', '2022-08-10', 'AAwi53', 0, 0, 0, 1),
+(18, 'Liga Futsal Mahasiswa di LIFUMA', '1', 'liga-futsal-mahasiswa-di-lifuma', '18196962381910640843futsal.jpg', '<p>UKM futsal bina insani mengikuti liga LIIFUMA 2022 yang diadakan di STIE</p>\n', 1, 'futsal, BiU, Liga Futsal Mahasiswa', '2022-08-10', 'T5FaBg', 2, 0, 0, 1),
+(19, 'Program Kerja Divisi Kominfo x Minat Bakat', '1', 'program-kerja-divisi-kominfo-x-minat-bakat', '151768481pameran.jpg', '<p>Program kerja yang akan dilaksanakan oleh divisi Kominfo dan Minat Bakat di bulan april 2022 nanti</p>\r\n', 2, 'Proker, BEM, bina insani university', '2022-08-10', 'uXbfbg', 2, 0, 0, 1),
+(20, 'Sertijab Angkatan 2022/2023', '1', 'sertijab-angkatan-2022-2023', '1747618980876964702paslon-1-1.jpg', '<p>Badan Eksekutif Mahasiswa Bina Insani University akan melaksanakan sertijab setelah melakukan Pemira</p>\r\n', 1, 'Sertijab, BEM, bina insani university', '2022-08-10', 'AAwi53', 1, 0, 0, 1),
 (21, 'Cek dmkmdskamd00sdms_+', '1', 'Cek-dmkmdskamd00sdms_+', 'bali.jpg', '<p>skmkmsdsmsmxksmxksmxkss</p>\r\n', 1, 'Php', '2022-09-30', 'QGuGtx', 1, 0, 0, 0);
 
 -- --------------------------------------------------------
@@ -131,12 +131,12 @@ CREATE TABLE `bph` (
 --
 
 INSERT INTO `bph` (`id`, `nama`, `ig`, `jabatan`, `image`) VALUES
-(10, 'Bagas Adji Priantomo', 'bagas', 'Ketua BEM', 'BAGAS1.jpg'),
+(10, 'Bagas Adji P.', 'bagas', 'Ketua BEM', 'BAGAS1.jpg'),
 (11, 'Leliana Eka Fauziah', 'Leliana', 'Wakil Ketua BEM', 'LELIANA.jpg'),
-(12, 'Nabila Rodhatul Jannah', '-', 'Sekretaris 1', 'default.jpg'),
+(12, 'Nabila Rodhatul J.', '-', 'Sekretaris 1', 'default.jpg'),
 (13, 'Annisa Nurhalisa', '-', 'Sekretaris 2', 'default.jpg'),
-(14, 'Vinki Cecilian Maulana', '-', 'Bendahara 1', 'default.jpg'),
-(15, 'Putri Barinda Shofiani', '-', 'Bendahara 2', 'default.jpg');
+(14, 'Vinki Cecilian M.', '-', 'Bendahara 1', 'default.jpg'),
+(15, 'Putri Barinda S.', '-', 'Bendahara 2', 'default.jpg');
 
 -- --------------------------------------------------------
 
@@ -223,7 +223,6 @@ CREATE TABLE `message` (
   `id` int(11) NOT NULL,
   `nama` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
-  `subject` varchar(128) NOT NULL,
   `isi` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -231,8 +230,13 @@ CREATE TABLE `message` (
 -- Dumping data untuk tabel `message`
 --
 
-INSERT INTO `message` (`id`, `nama`, `email`, `subject`, `isi`) VALUES
-(1, 'Putro Dwi', 'putrodwi31@gmail.com', 'security', 'Tingkatkan lagi keamanan web ini agar kedepannya user lebih percaya terhadapweb ini');
+INSERT INTO `message` (`id`, `nama`, `email`, `isi`) VALUES
+(1, 'Putro Dwi', 'putrodwi31@gmail.com', 'Tingkatkan lagi keamanan web ini agar kedepannya user lebih percaya terhadapweb ini'),
+(5, 'Putro Dwi Mulyo', 'putrodwi31@gmail.com', 'drrfer rvr vever'),
+(6, 'Putro Dwi Mulyo', 'putrodwi31@gmail.com', 'putrodwoedoeo adsnajnc ascnjc djncjsd  cdjnc anscjns cjdsnc acmaksm casncan skckmkc ksamckams ckasmcka akscmka caskmckmsc askckasmcka'),
+(7, 'Putro Dwi Mulyo', 'putrodwi31@gmail.com', 'd'),
+(8, 'Putro Dwi Mulyo', 'putrodwi31@gmail.com', 'g'),
+(9, 'Putro Dwi Mulyo', 'putrodwi31@gmail.com', 'ds');
 
 -- --------------------------------------------------------
 
@@ -253,7 +257,7 @@ CREATE TABLE `pendaftaran` (
 --
 
 INSERT INTO `pendaftaran` (`id`, `angkatan`, `status`, `started`, `end`) VALUES
-(2, 'Angkatan XIV', '1', '1659869820', '1661943420');
+(2, 'Angkatan XIV', '1', '1689946500', '1690810500');
 
 -- --------------------------------------------------------
 
@@ -282,7 +286,7 @@ CREATE TABLE `prof_org` (
 --
 
 INSERT INTO `prof_org` (`id`, `nama`, `nama_kabinet`, `logo`, `alamat`, `desk`, `email`, `hari`, `jam`, `no1`, `no2`, `ig`, `yt`) VALUES
-(1, 'BEM Universitas Bina Insani', 'Catrawiyasa', 'logo-kabinet1.png', 'Jl. Raya Siliwangi No.6, RT.001/RW.004, Sepanjang Jaya, Kec. Rawalumbu, Kota Bks, Jawa Barat 17114', 'Badan Eksekutif Mahasiswa Universitas Bina Insani Didirikan pada tanggal 4 Feruari 2021, diketuai oleh Bagas Adji Priantomo dan wakilnya, Leliana Eka Fauziah.', 'bem@binainsani.ac.id', 'Selasa & Kamis', '15:00 - 17:00', '080', '080', 'bem.binainsani', 'bem.binainsani');
+(1, 'BEM Universitas Bina Insani', 'Catrawiyasa', 'logo-kabinet.png', 'Jl. Raya Siliwangi No.6, RT.001/RW.004, Sepanjang Jaya, Kec. Rawalumbu, Kota Bks, Jawa Barat 17114', 'Badan Eksekutif Mahasiswa Universitas Bina Insani Didirikan pada tanggal 4 Feruari 2021, diketuai oleh Bagas Adji Priantomo dan wakilnya, Leliana Eka Fauziah.', 'bem@binainsani.ac.id', 'Selasa & Kamis', '15:00 - 17:00', '082131022233', '080', 'bem.bina_insani', '@bembiu5527');
 
 -- --------------------------------------------------------
 
@@ -454,7 +458,7 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (19, 7, 'Rekap Absensi', 'user/rekap', 'fas fa-fw fa-chart-pie\"', 1),
 (20, 1, 'Pendaftaran', 'admin/pendaftaran', 'fas fa-fw fa-file-alt', 1),
 (21, 1, 'Home Profile', 'admin/profile', 'fas fa-fw fa-hotel', 1),
-(22, 1, 'Contact Us', 'admin/message', 'fas fa-fw fa-comment-alt', 1),
+(22, 1, 'Kotak Saran', 'admin/message', 'fas fa-fw fa-comment-alt', 1),
 (24, 1, 'Kementerian & UKM', 'admin/kandu', 'fas fa-fw fa-object-group', 1);
 
 -- --------------------------------------------------------
@@ -651,7 +655,7 @@ ALTER TABLE `kementerian`
 -- AUTO_INCREMENT untuk tabel `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `pendaftaran`

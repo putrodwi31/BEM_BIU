@@ -9,10 +9,10 @@
                 Badan Eksekutif Mahasiswa Universitas Bina Insani</p>
             </h3>
             <div class="footer__social ">
-                <a href="https://www.instagram.com/ " class="footer__social-link ">
+                <a href="https://www.instagram.com/<?= $org['ig']; ?>" class="footer__social-link" target="_blank">
                     <i class="ri-instagram-line "></i>
                 </a>
-                <a href="https://twitter.com/ " class="footer__social-link ">
+                <a href="https://youtube.com/<?= $org['yt']; ?>" class="footer__social-link" target="_blank">
                     <i class="ri-youtube-fill "></i>
                 </a>
             </div>
@@ -21,7 +21,7 @@
             <h3 class="footer__title ">Menteri</h3>
             <ul class="footer__data ">
                 <?php foreach ($kem as $u) : ?>
-                    <a href="<?= base_url('detail-kem/') . $u['id']; ?>">
+                    <a href="">
                         <li class="footer__information "> <?= $u['nama'] == 'Komunikasi dan Informasi' ? 'Kominfo' : $u['nama']; ?></li>
                     </a>
                 <?php endforeach; ?>
@@ -63,7 +63,7 @@
     AOS.init();
     var swiper = new Swiper(".mySwiper", {
         slidesPerView: 1,
-        spaceBetween: 10,
+        spaceBetween: 30,
         pagination: {
             el: ".swiper-pagination",
             clickable: true,
@@ -79,7 +79,7 @@
             },
             1024: {
                 slidesPerView: 3,
-                spaceBetween: 30,
+                spaceBetween: 40,
             },
         },
     });

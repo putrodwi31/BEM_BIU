@@ -89,6 +89,7 @@ class Blog extends CI_Controller
         $data['artikel'] = $this->post->getArt($slug);
         $data['kem'] = $this->db->order_by('nama', 'ASC')->get('kementerian')->result_array();
         $data['title'] = $data['artikel']['judul'] . ' - ';
+        $data['org'] = $this->db->get_where('prof_org', ['id' => 1])->row_array();
         if (!$data['artikel']) {
             $this->notfound();
         } else {
@@ -114,75 +115,12 @@ class Blog extends CI_Controller
             $this->load->view('blog/artikle', $data);
             $this->load->view('templates/land_footer', $data);
         }
-
-        // if ($data['artikel']) {
-        //     $data['judul'] = $data['artikel']['judul'] . ' - BEM Bina Insani University';
-        //     $data['komen'] = $this->post->getKomen($data['artikel']['id']);
-        //     $data['penulis'] = $this->post->getPenulis($data['artikel']['penulis']);
-        //     $data['kat'] = $this->post->getkat($data['artikel']['kategori']);
-        //     $foot['kategori'] = $this->post->getKategori();
-        //     $foot['newpost'] = $this->post->getPostTerbaru();
-        //     $foot['tags'] = $this->post->getTags($data['artikel']['id']);
-        //     $foot['pmr'] = $this->db->get_where('prof_pmr', ['id' => 1])->row_array();
-        //     $data['jmlkomen'] = $this->db->get_where('blog_komentar', ['id_artikel' => $data['artikel']['id']])->num_rows();
-
-        //     $this->form_validation->set_rules('name', 'Nama', 'required|trim');
-        //     $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
-        //     $this->form_validation->set_rules('komen', 'Komentar', 'required|trim');
-
-        // // load cookie helper
-        // $this->load->helper('cookie');
-        // // cookie dari slug
-        // $check_visitor = $this->input->cookie($slug, false);
-
-        // $ip = $this->input->ip_address();
-
-        // // jika pengunjung mengunjungi pertama kali maka
-        // if ($check_visitor == false) {
-        //     $cookie = array(
-        //         "name" => $slug,
-        //         "value" => $ip,
-        //         "expire" => time() + (120 * 60), // 2 Jam
-        //         "secure" => false,
-        //     );
-        //     $this->input->set_cookie($cookie);
-        //     $this->post->tambah_views($slug);
-        // }
-        //     if ($this->form_validation->run() == false) {
-
-        //         $this->load->view('templates/land_header');
-        //         $this->load->view('blog/art', $data);
-        //         $this->load->view('templates/land_blog_footer', $foot);
-        //     } else {
-        //         $name = $this->input->post('name');
-        //         $email = $this->input->post('email');
-        //         $komen = $this->input->post('komen');
-        //         $tanggal = time();
-        //         $data = [
-        //             'id_artikel' => $data['artikel']['id'],
-        //             'name' => $name,
-        //             'email' => $email,
-        //             'komen' => $komen,
-        //             'tanggal' => $tanggal,
-        //             'status' => 1,
-        //             'is_reply' => 0,
-        //             'id_reply_comment' => 0,
-        //         ];
-        //         $this->db->insert('blog_komentar', $data);
-        //         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable">
-        //     <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>Komentar berhasil dipublish.</div>');
-        //         redirect("artikel/$slug");
-        //     }
-        // } else {
-        //     var_dump($data['artikel']);
-        //     die;
-        //     $this->notfound();
-        // }
     }
     public function notfound()
     {
         $data['title'] = null;
         $data['kem'] = $this->db->order_by('nama', 'ASC')->get('kementerian')->result_array();
+        $data['org'] = $this->db->get_where('prof_org', ['id' => 1])->row_array();
         $this->load->view('templates/land_header', $data);
         $this->load->view('blog/404');
         $this->load->view('templates/land_footer', $data);

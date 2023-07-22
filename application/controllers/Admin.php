@@ -33,13 +33,49 @@ class Admin extends CI_Controller
         $data['title'] = 'Kementerian & UKM';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['kem'] = $this->db->get_where('kementerian', ['id' => $id])->row_array();
+
+        $this->form_validation->set_rules('name', 'Keyword', 'required|trim');
+        $this->form_validation->set_rules('desk', 'Keyword', 'required|trim');
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('admin/editkem', $data);
-            $this->load->view('templates/footer');
+            $this->load->view('templates/footer', $data['title']);
         } else {
+            //cek jika ada gambar yang akan diupload
+            $upload_image = $_FILES['image']['name'];
+
+
+            if ($upload_image) {
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size'] = '2048';
+                $config['upload_path'] = './assets/img/logo/';
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $gambar = $this->upload->data('file_name');
+                } else {
+                    echo $this->upload->display_errors();
+                }
+                $data = [
+                    'nama' => $this->input->post('name'),
+                    'desk' => $this->input->post('desk'),
+                    'logo' => $gambar
+                ];
+            } else {
+                $data = [
+                    'nama' => $this->input->post('name'),
+                    'desk' => $this->input->post('desk'),
+                ];
+            }
+
+            $this->db->set($data);
+            $this->db->where('id', $id);
+            $this->db->update('kementerian');
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Kementerian berhasil di ubah<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('admin/kandu');
         }
     }
     public function delkem($id)
@@ -48,7 +84,9 @@ class Admin extends CI_Controller
         unlink(FCPATH . 'assets/img/logo/' . $img_post['logo']);
         $nama = $img_post['nama'];
         $this->db->delete('kementerian', ['id' => $id]);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kementerian ' . $nama . ' Berhasil dihapus!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Kementerian ' . $nama . ' Berhasil dihapus!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
         redirect('admin/kandu');
     }
     public function delukm($id)
@@ -57,7 +95,9 @@ class Admin extends CI_Controller
         unlink(FCPATH . 'assets/img/logo/' . $img_post['logo']);
         $nama = $img_post['nama'];
         $this->db->delete('ukm', ['id' => $id]);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">UKM ' . $nama . ' Berhasil dihapus!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">UKM ' . $nama . ' Berhasil dihapus!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
         redirect('admin/kandu');
     }
     public function editukm($id)
@@ -65,13 +105,49 @@ class Admin extends CI_Controller
         $data['title'] = 'Kementerian & UKM';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['kem'] = $this->db->get_where('ukm', ['id' => $id])->row_array();
+
+        $this->form_validation->set_rules('name', 'Keyword', 'required|trim');
+        $this->form_validation->set_rules('desk', 'Keyword', 'required|trim');
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('admin/editukm', $data);
-            $this->load->view('templates/footer');
+            $this->load->view('templates/footer', $data['title']);
         } else {
+            //cek jika ada gambar yang akan diupload
+            $upload_image = $_FILES['image']['name'];
+
+
+            if ($upload_image) {
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size'] = '2048';
+                $config['upload_path'] = './assets/img/logo/';
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $gambar = $this->upload->data('file_name');
+                } else {
+                    echo $this->upload->display_errors();
+                }
+                $data = [
+                    'nama' => $this->input->post('name'),
+                    'desk' => $this->input->post('desk'),
+                    'logo' => $gambar
+                ];
+            } else {
+                $data = [
+                    'nama' => $this->input->post('name'),
+                    'desk' => $this->input->post('desk'),
+                ];
+            }
+
+            $this->db->set($data);
+            $this->db->where('id', $id);
+            $this->db->update('ukm');
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">UKM berhasil di ubah<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('admin/kandu');
         }
     }
 
@@ -115,7 +191,9 @@ class Admin extends CI_Controller
             ];
 
             $this->db->insert('kementerian', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kementerian berhasil di tambah</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Kementerian berhasil di tambah<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
             redirect('admin/kandu');
         }
     }
@@ -124,7 +202,9 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('name', 'Keyword', 'required|trim');
         $this->form_validation->set_rules('desk', 'Keyword', 'required|trim');
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal format data tidak sesuai!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">Gagal format data tidak sesuai!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
             redirect('admin/kandu');
         } else {
             //cek jika ada gambar yang akan diupload
@@ -151,7 +231,9 @@ class Admin extends CI_Controller
             ];
 
             $this->db->insert('ukm', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">UKM berhasil di tambah</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">UKM berhasil di tambah<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
             redirect('admin/kandu');
         }
     }
@@ -199,7 +281,9 @@ class Admin extends CI_Controller
                 'image' => $gambar
             ];
             $this->db->insert('bph', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Anggota BPH berhasil ditambahkan!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Anggota BPH berhasil ditambahkan!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
             redirect('admin/profile');
         }
     }
@@ -209,20 +293,24 @@ class Admin extends CI_Controller
         $img_post = $this->db->get_where('bph', ['id' => $id])->row_array();
         unlink(FCPATH . 'assets/img/team/' . $img_post['image']);
         $this->db->delete('bph', ['id' => $id]);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">BPH Berhasil dihapus!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">BPH Berhasil dihapus!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
         redirect('admin/profile');
     }
     public function delmsg($id)
 
     {
         $this->db->delete('message', ['id' => $id]);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pesan Berhasil dihapus!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Pesan Berhasil dihapus!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
         redirect('admin/message');
     }
 
     public function viewmsg($id)
     {
-        $data['title'] = 'Contact Us';
+        $data['title'] = 'Kotak Saran';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['message'] = $this->db->get_where('message', ['id' => $id])->row_array();
 
@@ -282,7 +370,9 @@ class Admin extends CI_Controller
             $this->db->set($data);
             $this->db->where('id', $id);
             $this->db->update('bph');
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Anggota BPH berhasil diedit!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Anggota BPH berhasil diedit!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
             redirect("admin/editbph/$id");
         }
     }
@@ -298,7 +388,9 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('ig', 'Keyword', 'required|trim');
         $this->form_validation->set_rules('yt', 'Keyword', 'required|trim');
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal format data tidak sesuai!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">Gagal format data tidak sesuai!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
             redirect('admin/profile');
         } else {
             //cek jika ada gambar yang akan diupload
@@ -317,30 +409,44 @@ class Admin extends CI_Controller
                 } else {
                     echo $this->upload->display_errors();
                 }
+                $data = [
+                    'nama' => $this->input->post('nama'),
+                    'logo' => $gambar,
+                    'alamat' =>  $this->input->post('alamat'),
+                    'desk' =>  $this->input->post('desk'),
+                    'email' =>  $this->input->post('email'),
+                    'no1' =>  $this->input->post('no'),
+                    'no2' =>  $this->input->post('no2'),
+                    'ig' =>  $this->input->post('ig'),
+                    'yt' =>  $this->input->post('yt'),
+                ];
+            } else {
+                $data = [
+                    'nama' => $this->input->post('nama'),
+                    'alamat' =>  $this->input->post('alamat'),
+                    'desk' =>  $this->input->post('desk'),
+                    'email' =>  $this->input->post('email'),
+                    'no1' =>  $this->input->post('no'),
+                    'no2' =>  $this->input->post('no2'),
+                    'ig' =>  $this->input->post('ig'),
+                    'yt' =>  $this->input->post('yt'),
+                ];
             }
-            $data = [
-                'nama' => $this->input->post('nama'),
-                'logo' => $gambar,
-                'alamat' =>  $this->input->post('alamat'),
-                'desk' =>  $this->input->post('desk'),
-                'email' =>  $this->input->post('email'),
-                'no1' =>  $this->input->post('no'),
-                'no2' =>  $this->input->post('no2'),
-                'ig' =>  $this->input->post('ig'),
-                'yt' =>  $this->input->post('yt'),
-            ];
+
 
             $this->db->set($data);
             $this->db->where('id', 1);
             $this->db->update('prof_org');
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Profile Organisasi berhasil diedit!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Profile Organisasi berhasil diedit!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
             redirect('admin/profile');
         }
     }
 
     public function message()
     {
-        $data['title'] = 'Contact Us';
+        $data['title'] = 'Kotak Saran';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['message'] = $this->db->get('message')->result_array();
 
@@ -391,7 +497,9 @@ class Admin extends CI_Controller
                 'end' => $end
             ];
             $this->db->insert('pendaftaran', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Jadwal pendaftaran berhasil ditambahkan!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Jadwal pendaftaran berhasil ditambahkan!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
             redirect('admin/pendaftaran');
         }
     }
@@ -423,7 +531,9 @@ class Admin extends CI_Controller
             $this->db->set('end', $end);
             $this->db->where('id', $id);
             $this->db->update('pendaftaran');
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Jadwal Pendaftaran berhasil diubah!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Jadwal Pendaftaran berhasil diubah!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
             redirect("admin/editpendaftaran/$id");
         }
     }
@@ -446,14 +556,18 @@ class Admin extends CI_Controller
             $this->load->view('templates/footer', $data['title']);
         } else {
             $this->db->insert('user_role', ['role' => $this->input->post('role')]);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New role added!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">New role added!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
             redirect('admin/role');
         }
     }
     public function roledelete($role_id)
     {
         $this->db->delete('user_role', ['id' => $role_id]);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Role deleted!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Role deleted!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
         redirect('admin/role');
     }
 
@@ -496,7 +610,9 @@ class Admin extends CI_Controller
         $this->db->set('role', $roleedit);
         $this->db->where('id', $role_id);
         $this->db->update('user_role');
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Role name edited!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Role name edited!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
         redirect("admin/roleedit/$role_id");
     }
 
@@ -519,7 +635,9 @@ class Admin extends CI_Controller
             $this->db->delete('user_access_menu', $data);
         }
 
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Access Changed!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Access Changed!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
     }
 
     public function detailpendaftar($p_id)
@@ -661,11 +779,15 @@ class Admin extends CI_Controller
 
             $tambah = $this->db->insert('artikel', $data);
             if ($tambah) {
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil menambahkan postingan!.</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Berhasil menambahkan postingan!.<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
                 $this->session->unset_userdata('rand_id');
                 redirect('admin/addpost');
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal menambahkan postingan!.</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">Gagal menambahkan postingan!.<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
                 $this->session->unset_userdata('rand_id');
                 redirect('admin/addpost');
             }
@@ -677,6 +799,7 @@ class Admin extends CI_Controller
         $data['title'] = 'Postingan';
         $data['title2'] = 'Edit Postingan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $foot['kem'] = $this->db->select('id, nama')->get('kementerian')->result_array();
         $this->load->model('Post_model', 'post');
 
         $data['kategori'] = $this->db->get('blog_kategori')->result_array();
@@ -724,7 +847,9 @@ class Admin extends CI_Controller
         $this->db->set($data);
         $this->db->where('id', $id);
         $this->db->update('artikel');
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Postingan berhasil di edit</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Postingan berhasil di edit<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
         redirect("admin/post");
     }
 
@@ -736,7 +861,9 @@ class Admin extends CI_Controller
         $this->db->set($data);
         $this->db->where('id', $id);
         $this->db->update('artikel');
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Postingan berhasil di Publikasikan</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Postingan berhasil di Publikasikan<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
         redirect("admin/post");
     }
 
@@ -748,7 +875,9 @@ class Admin extends CI_Controller
         $this->db->set($data);
         $this->db->where('id', $id);
         $this->db->update('artikel');
-        $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Postingan berhasil di kembalikan ke draft</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-warning alert-dismissible fade show" role="alert">Postingan berhasil di kembalikan ke draft<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
         redirect("admin/post");
     }
 
@@ -777,7 +906,9 @@ class Admin extends CI_Controller
         unlink(FCPATH . 'assets/img/post/' . $img_post['gambar']);
         delpostfiles($del);
         $this->db->delete('artikel', ['id' => $post_id]);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Postingan Berhasil dihapus!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Postingan Berhasil dihapus!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
         redirect('admin/post');
     }
 
@@ -798,7 +929,9 @@ class Admin extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $this->db->insert('blog_kategori', ['nama' => $this->input->post('nama')]);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kategori baru berhasil ditambahkan!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Kategori baru berhasil ditambahkan!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>');
             redirect('admin/addkategori');
         }
     }

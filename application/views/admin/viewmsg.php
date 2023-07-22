@@ -21,13 +21,6 @@
 
                     </div>
                     <div class="form-group row">
-                        <label for="role" class="col-sm-3 col-form-label">Subject</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" value="<?= $message['subject']; ?>" readonly>
-                        </div>
-
-                    </div>
-                    <div class="form-group row">
                         <label for="role" class="col-sm-3 col-form-label">isi</label>
                         <div class="col-sm-9">
                             <textarea class="form-control" name="" id="" rows="10" readonly><?= $message['isi']; ?></textarea>

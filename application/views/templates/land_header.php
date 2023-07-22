@@ -4,15 +4,20 @@
 <head>
     <meta charset="utf-8">
     <title><?= $title; ?>BEM Bina Insani University</title>
+    <link href="<?= base_url('assets/'); ?>css/bootstrap.css" rel="stylesheet">
+    <link href="<?= base_url('assets/'); ?>css/responsive.css" rel="stylesheet">
     <link href="<?= base_url('assets/'); ?>css/styless3.css" rel="stylesheet">
+    <link href="<?= base_url('assets/'); ?>css/color.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&amp;family=Yantramanav:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="<?= base_url('assets/'); ?>img/logo-kabinet.png" type="image/x-icon">
+    <link rel="icon" href="<?= base_url('assets/'); ?>img/klogo2.ico" type="image/x-icon">
     <!-- Responsive -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
     <style>
         .berita__terbaru-img {
             max-height: 300px;

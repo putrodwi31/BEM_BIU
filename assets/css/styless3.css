@@ -998,7 +998,11 @@
         justify-self: center;
     }
 
-    
+    .contact {
+        padding: 3.5rem 0 2rem;
+        background-color: var(--link-color);
+        height: 278px;
+    }
     /*=============== UKM ===============*/
 
     .ukm {

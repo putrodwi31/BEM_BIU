@@ -25,7 +25,6 @@
             </div>
 
             <div class="swiper-pagination"></div>
-            <div style="margin-top: 2rem;"></div>
         </div>
 
 
@@ -44,9 +43,13 @@
 
                     <div class="detail__divisi-card">
                         <h2 class="detail__title-divisi"><?= word_limiter($u['desk'], 7); ?></h2>
-                        <a href="<?= base_url('detail-kem/') . $u['id']; ?>" class="button__program">Baca Selengkapnya
-                            <i class="ri-arrow-right-s-line"></i>
-                        </a>
+                        <?php
+                        $no = 1;
+                        if ($no != 1) {
+                            echo "<a href='" . base_url('detail-kem/') . $u['id'] . "' class='button__program'>Baca Selengkapnya<i class='ri-arrow-right-s-line'></i></a>";
+                        } ?>
+
+
                     </div>
                 </div>
             <?php endforeach; ?>

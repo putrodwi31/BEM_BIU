@@ -218,20 +218,20 @@
         });
       </script>
 
+      <?php if ($title == "Buat Postingan" || $title == "Postingan" || $title == "Edit Postingan") : ?>
+        <script>
+          $(function() {
+            CKEDITOR.replace('isipost', {
+              height: 300,
+              filebrowserUploadUrl: '<?php echo base_url('admin/upeditor/') . $rand; ?>'
+            })
 
-      <script>
-        $(function() {
-          CKEDITOR.replace('isipost', {
-            height: 300,
-            filebrowserUploadUrl: '<?php echo base_url('admin/upeditor/') . $rand; ?>'
-          })
+          });
 
-        });
-
-        function cekPro() {
-          let getPro = document.getElementById('kategori').value;
-          if (getPro == "2") {
-            let nem = `<div class="from-group row mb-3" id="kem"><label for="kementrian" class="col-sm-2 col-form-label">Kementrian</label>
+          function cekPro() {
+            let getPro = document.getElementById('kategori').value;
+            if (getPro == "2") {
+              let nem = `<div class="from-group row mb-3" id="kem"><label for="kementrian" class="col-sm-2 col-form-label">Kementrian</label>
                                         <div class="col-sm-4">
                                             <select name="kementrian" id="kementrian" class="form-control">
                                               <option class="text-center">PILIH KEMENTRIAN</option>
@@ -241,20 +241,20 @@
                                             </select>
                                         </div>
                                         <a class="btn btn-secondary text-white" id="tamkem"> <strong>+</strong> </a></div>`
-            $('#newpro').append(nem)
+              $('#newpro').append(nem)
 
-            let dataRow = 0
-            const tamkem = document.getElementById('tamkem')
-            tamkem.addEventListener('click', function() {
+              let dataRow = 0
+              const tamkem = document.getElementById('tamkem')
+              tamkem.addEventListener('click', function() {
 
-              if (dataRow < 2) {
-                dataRow++
-                inputRow(dataRow)
-              }
+                if (dataRow < 2) {
+                  dataRow++
+                  inputRow(dataRow)
+                }
 
-            })
-            inputRow = (i) => {
-              let ppDiv = `<div class="from-group row mb-3" id="newpro${i}"><label for="kementrian" class="col-sm-2 col-form-label"></label>
+              })
+              inputRow = (i) => {
+                let ppDiv = `<div class="from-group row mb-3" id="newpro${i}"><label for="kementrian" class="col-sm-2 col-form-label"></label>
                                         <div class="col-sm-4">
                                             <select name="kementrian${i}" id="kementrian${i}" class="form-control">
                                               <option class="text-center">PILIH KEMENTRIAN</option>
@@ -264,20 +264,21 @@
                                             </select>
                                         </div>
                                         <a class="btn btn-secondary text-white delete-record" data-id="${i}"> <strong>x</strong> </a></div>`
-              $('#newpro').append(ppDiv)
+                $('#newpro').append(ppDiv)
 
+              }
+              $('#newpro').on('click', '.delete-record', function() {
+                let id = $(this).attr('data-id')
+                $('#newpro' + id).remove()
+                dataRow--
+              })
+            } else {
+              const kem = document.getElementById('kem')
+              kem.remove()
             }
-            $('#newpro').on('click', '.delete-record', function() {
-              let id = $(this).attr('data-id')
-              $('#newpro' + id).remove()
-              dataRow--
-            })
-          } else {
-            const kem = document.getElementById('kem')
-            kem.remove()
           }
-        }
-      </script>
+        </script>
+      <?php endif; ?>
       <strong></strong>
       </body>
 
